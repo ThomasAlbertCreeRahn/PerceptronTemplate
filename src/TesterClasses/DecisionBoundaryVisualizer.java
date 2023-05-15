@@ -6,10 +6,10 @@ import DataDisplay.Display;
 import processing.core.PApplet;
 import Perceptron.Perceptron;
 
-public class DecisionBoundaryVizualizer extends PApplet {
+public class DecisionBoundaryVisualizer extends PApplet {
     private static final int NO_CATEGORY_COLOR = 0xFFFFFF00;
     private static final int YES_CATEGORY_COLOR = 0xFFFF00FF;
-    private static final int CORRECT_CLASSIFICAITON_COLOR = 0xFF00FF00;
+    private static final int CORRECT_CLASSIFICATION_COLOR = 0xFF00FF00;
     private static final int INCORRECT_CLASSIFICATION_COLOR = 0xFFFF0000;
 
     DataSet d;
@@ -110,7 +110,7 @@ public class DecisionBoundaryVizualizer extends PApplet {
             float[] inputs = point.getData(features);
             int guess = nn.guess(inputs);
 
-            int color = (nn.isGuessCorrect(guess, label)) ? CORRECT_CLASSIFICAITON_COLOR : INCORRECT_CLASSIFICATION_COLOR;
+            int color = (nn.isGuessCorrect(guess, label)) ? CORRECT_CLASSIFICATION_COLOR : INCORRECT_CLASSIFICATION_COLOR;
             int stroke = (label.equals(nn.getTargetLabel())) ? YES_CATEGORY_COLOR : NO_CATEGORY_COLOR;
             display.plotDataCoords(this, point.getData(x), point.getData(y), 16, stroke, color, weight);
         }
@@ -131,10 +131,9 @@ public class DecisionBoundaryVizualizer extends PApplet {
     }
 
     public void mouseReleased() {
-        boolean noChange = true;
+        boolean noChange;
         do {
             DataSet.DataPoint point = d.getData().get(currentIndex);
-            String label = point.getLabelString();
 
             float[] inputs = {point.getData(x), point.getData(y)};
             noChange = !nn.train(inputs, point.getLabelString());
@@ -146,6 +145,6 @@ public class DecisionBoundaryVizualizer extends PApplet {
     }
 
    public static void main(String[] args) {
-        PApplet.main("TesterClasses.DecisionBoundaryVizualizer");
+        PApplet.main("TesterClasses.DecisionBoundaryVisualizer");
     }
 }
